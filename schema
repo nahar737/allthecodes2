@@ -68,3 +68,28 @@
       }
     }
   ]
+
+
+
+module "reciver_cloud_run" {
+  source     = "../modules/cloud-run-v2"
+  project_id = "sky3-star-mzp-ppd-d-eagleye-1"
+  name       = "reciver-and-publisher"
+  region     = "me-west1"
+  ingress = "INGRESS_TRAFFIC_INTERNAL_ONLY"
+  containers = {
+    telegram = {
+      image = "me-west1-docker.pkg.dev/sky3-star-mzp-ppd-d-eagleye-1/dmz/dmz-image:latest"
+    }
+  }
+  revision = {
+    gen2_execution_environment = true
+    max_instance_count         = 20
+    vpc_access = {
+      egress = "PRIVATE_RANGES_ONLY"
+      subnet = "projects/sky3-starfish-mzp-preprod-d-0/regions/me-west1/subnetworks/preprod-dmz-eagleye-1"
+    }
+  }
+  deletion_protection = false
+  service_account = module.cloud-run-service-account.email
+}
