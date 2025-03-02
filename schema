@@ -96,11 +96,11 @@ module "reciver_cloud_run" {
 
 
 {
-  "time": "2025-03-02 09:41:50",
-  "content": "חחח",
+  "time": "2025-03-02 11:59:09",
+  "content": "חוזלעטו",
   "channel": "internal8104",
   "channel_id": 2371097149,
-  "insertId": "8a501fa3-7411-4f6d-83e7-591e26af2aad",
-  "update_time": "2025-03-02T11:41:52.706146+02:00",
+  "id": "4ad04f30-4c00-4f4a-a64e-d75b98c868eb",
+  "update_time": 1740916752245,
   "is_blue_data": true
 }
