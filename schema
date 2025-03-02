@@ -582,3 +582,81 @@ EOT
           }
         }
       ]
+
+================================================
+
+[
+    { "name": "id", "type": "string" },
+    { "name": "post_id", "type": ["null", "string"], "default": null },
+    { "name": "update_time", "type": "long" },
+    { "name": "is_breaking_news", "type": "boolean" },
+    { "name": "is_breaking_news_scale", "type": "string" },
+    {
+      "name": "channel",
+      "type": {
+        "type": "record",
+        "name": "Channel",
+        "fields": [
+          { "name": "name", "type": "string" },
+          { "name": "id", "type": ["null", "string"], "default": null }
+        ]
+      }
+    },
+    { "name": "original_content", "type": "string" },
+    { "name": "summary", "type": "string" },
+    { "name": "media_url", "type": ["null", "string"], "default": null },
+    { "name": "source_language", "type": "string" },
+    { "name": "title", "type": "string" },
+    { "name": "type", "type": ["null", "string"], "default": null },
+    { "name": "city", "type": ["null", "string"], "default": null },
+    { "name": "place", "type": ["null", "string"], "default": null },
+    { "name": "involves", "type": ["null", "string"], "default": null },
+    {
+      "name": "casualties",
+      "type": {
+        "type": "record",
+        "name": "Casualties",
+        "fields": [
+          {
+            "name": "blue_side",
+            "type": {
+              "type": "record",
+              "name": "Side",
+              "fields": [
+                { "name": "lightly_injured", "type": ["null", "string"], "default": null },
+                { "name": "moderately_injured", "type": ["null", "string"], "default": null },
+                { "name": "seriously_injured", "type": ["null", "string"], "default": null },
+                { "name": "critical_injured", "type": ["null", "string"], "default": null },
+                { "name": "deaths", "type": ["null", "string"], "default": null }
+              ]
+            }
+          },
+          {
+            "name": "red_side",
+            "type": "Side"
+          }
+        ]
+      }
+    },
+    { "name": "source", "type": ["null", "string"], "default": null },
+    { "name": "date", "type": ["null", "string"], "default": null },
+    { "name": "time", "type": ["null", "string"], "default": null },
+    { "name": "verification_status", "type": ["null", "string"], "default": null },
+    { "name": "incident_priority", "type": ["null", "string"], "default": null },
+    { "name": "tags", "type": ["null", "string"], "default": null },
+    {
+      "name": "geo",
+      "type": {
+        "type": "record",
+        "name": "Geo",
+        "fields": [
+          { "name": "regions", "type": ["null", "string"], "default": null },
+          { "name": "locations", "type": ["null", "string"], "default": null },
+          { "name": "source", "type": ["null", "string"], "default": null },
+          { "name": "point_id", "type": ["null", "string"], "default": null },
+          { "name": "geography", "type": ["null", "string"], "default": null },
+          { "name": "neighborhood", "type": ["null", "string"], "default": null }
+        ]
+      }
+    }
+  ]
