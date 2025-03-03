@@ -56,6 +56,62 @@ message Incident {
 }
 
 
+module "topic_with_schema" {
+  source     = "../modules/pubsub"
+  project_id = "sky3-star-mzp-ppd-d-eagleye-1"
+  name       = "blue-topic"
+  subscriptions = {
+    push_to_dmz_cr = {
+      push = {
+        endpoint = module.reciver_cloud_run.service_uri
+        oidc_token = {
+          service_account_email = module.cloud-run-service-account.email
+        }
+      }
+      retry_policy = {
+        minimum_backoff = 10
+        maximum_backoff = 600
+      }
+    }
+  }
+  schema = {
+    msg_encoding = "JSON"
+    schema_type  = "AVRO"
+    definition = jsonencode({
+      "type" = "record",
+      "name" = "Avro",
+      "fields" = [{
+        "name" : "time",
+        "type" : "string"
+        },
+        {
+        "name" : "content",
+        "type" : "string"
+        },
+        {
+        "name" : "channel",
+        "type" : "string"
+        },
+        {
+        "name" : "channel_id",
+        "type" : "long"
+        },
+        {
+        "name" : "id",
+        "type" : "string"
+        },
+        {
+        "name" : "update_time",
+        "type" : "long"
+        },
+        {
+        "name" : "is_blue_data",
+        "type" : "boolean"
+        },
+      ]
+    })
+  }
+}
 
 module "reciver_cloud_run" {
   source     = "../modules/cloud-run-v2"
