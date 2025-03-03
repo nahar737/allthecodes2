@@ -1,73 +1,59 @@
-"type": "record",
-  "name": "Incident",
-  "fields": [
-    { "name": "id", "type": "string" },
-    { "name": "post_id", "type": ["null", "string"], "default": null },
-    { "name": "update_time", "type": "long" },
-    {
-      "name": "channel", "type": {
-        "type": "record",
-        "name": "Channel",
-        "fields": [
-          { "name": "name", "type": "string" },
-          { "name": "id", "type": ["null", "string"], "default": null }
-        ]
-      }
-    },
-    { "name": "original_content", "type": "string" },
-    { "name": "summary", "type": "string" },
-    { "name": "media_url", "type": ["null", "string"], "default": null },
-    { "name": "source_language", "type": "string" },
-    { "name": "title", "type": "string" },
-    { "name": "type", "type": "string" },
-    { "name": "city", "type": "string" },
-    { "name": "place", "type": "string" },
-    { "name": "involves", "type": ["null", "string"], "default": null },
-    {
-      "name": "casualties", "type": {
-        "type": "record",
-        "name": "Casualties",
-        "fields": [
-          {
-            "name": "blue_side", "type": {
-              "type": "record",
-              "name": "Side",
-              "fields": [
-                { "name": "lightly_injured", "type": ["null", "string"], "default": null },
-                { "name": "moderately_injured", "type": ["null", "string"], "default": null },
-                { "name": "seriously_injured", "type": ["null", "string"], "default": null },
-                { "name": "critical_injured", "type": ["null", "string"], "default": null },
-                { "name": "deaths", "type": ["null", "string"], "default": null }
-              ]
-            }
-          },
-          {
-            "name": "red_side", "type": "Side"
-          }
-        ]
-      }
-    },
-    { "name": "source", "type": ["null", "string"], "default": null },
-    { "name": "date", "type": ["null", "string"], "default": null },
-    { "name": "time", "type": ["null", "string"], "default": null },
-    { "name": "verification_status", "type": "string" },
-    { "name": "incident_priority", "type": "string" },
-    { "name": "tags", "type": "string" },
-    {
-      "name": "geo", "type": {
-        "type": "record",
-        "name": "Geo",
-        "fields": [
-          { "name": "regions", "type": ["null", "string"], "default": null },
-          { "name": "locations", "type": ["null", "string"], "default": null },
-          { "name": "source", "type": ["null", "string"], "default": null },
-          { "name": "point_id", "type": ["null", "string"], "default": null },
-          { "name": "geography", "type": ["null", "string"], "default": null },
-          { "name": "neighborhood", "type": ["null", "string"], "default": null }
-        ]
-      }
-    }
-  ]
+syntax = "proto3";
+
+message Incident {
+  string id = 1;
+  optional string post_id = 2;
+  int64 update_time = 3;
+
+  message Channel {
+    string name = 1;
+    optional int64 id = 2;
+  }
+  Channel channel = 4;
+
+  bool is_breaking_news = 5;
+  string is_breaking_news_scale = 6;
+  string original_content = 7;
+  optional string summary = 8;
+  optional string media_url = 9;
+  string source_language = 10;
+  string title = 11;
+  optional string type = 12;
+  optional string city = 13;
+  optional string place = 14;
+  optional string involves = 15;
+
+  message Side {
+    optional string lightly_injured = 1;
+    optional string moderately_injured = 2;
+    optional string seriously_injured = 3;
+    optional string critical_injured = 4;
+    optional string deaths = 5;
+  }
+
+  message Casualties {
+    Side blue_side = 1;
+    Side red_side = 2;
+  }
+  Casualties casualties = 16;
+
+  optional string source = 17;
+  optional string date = 18;
+  optional string time = 19;
+  optional string verification_status = 20;
+  optional string incident_priority = 21;
+  optional string tags = 22;
+
+  message Geo {
+    optional string regions = 1;
+    optional string locations = 2;
+    optional string source = 3;
+    optional string point_id = 4;
+    optional string geography = 5;
+    optional string neighborhood = 6;
+  }
+  Geo geo = 23;
+}
 
 
 
