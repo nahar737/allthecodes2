@@ -50,6 +50,60 @@ locals {
   ])
 }
 
+locals {
+  events_after_llm = jsonencode([
+    { name = "id", type = "STRING" },
+    { name = "post_id", type = "STRING", mode = "NULLABLE" },
+    { name = "update_time", type = "INT64" },
+    { name = "channel", type = "STRUCT", fields = [
+      { name = "name", type = "STRING" },
+      { name = "id", type = "INT64" }
+    ] },
+    { name = "is_breaking_news", type = "BOOLEAN" },
+    { name = "is_breaking_news_scale", type = "STRING" },
+    { name = "original_content", type = "STRING" },
+    { name = "summary", type = "STRING", mode = "NULLABLE" },
+    { name = "media_url", type = "STRING", mode = "NULLABLE" },
+    { name = "source_language", type = "STRING" },
+    { name = "title", type = "STRING" },
+    { name = "type", type = "STRING", mode = "NULLABLE" },
+    { name = "city", type = "STRING", mode = "NULLABLE" },
+    { name = "place", type = "STRING", mode = "NULLABLE" },
+    { name = "involves", type = "STRING", mode = "NULLABLE" },
+    { name = "casualties", type = "STRUCT", fields = [
+      { name = "blue_side", type = "STRUCT", fields = [
+        { name = "lightly_injured", type = "STRING", mode = "NULLABLE" },
+        { name = "moderately_injured", type = "STRING", mode = "NULLABLE" },
+        { name = "seriously_injured", type = "STRING", mode = "NULLABLE" },
+        { name = "critical_injured", type = "STRING", mode = "NULLABLE" },
+        { name = "deaths", type = "STRING", mode = "NULLABLE" }
+      ] },
+      { name = "red_side", type = "STRUCT", fields = [
+        { name = "lightly_injured", type = "STRING", mode = "NULLABLE" },
+        { name = "moderately_injured", type = "STRING", mode = "NULLABLE" },
+        { name = "seriously_injured", type = "STRING", mode = "NULLABLE" },
+        { name = "critical_injured", type = "STRING", mode = "NULLABLE" },
+        { name = "deaths", type = "STRING", mode = "NULLABLE" }
+      ] }
+    ] },
+    { name = "source", type = "STRING", mode = "NULLABLE" },
+    { name = "date", type = "STRING", mode = "NULLABLE" },
+    { name = "time", type = "STRING", mode = "NULLABLE" },
+    { name = "verification_status", type = "STRING", mode = "NULLABLE" },
+    { name = "incident_priority", type = "STRING", mode = "NULLABLE" },
+    { name = "tags", type = "STRING", mode = "NULLABLE" },
+    { name = "geo", type = "STRUCT", fields = [
+      { name = "regions", type = "STRING", mode = "NULLABLE" },
+      { name = "locations", type = "STRING", mode = "NULLABLE" },
+      { name = "source", type = "STRING", mode = "NULLABLE" },
+      { name = "point_id", type = "STRING", mode = "NULLABLE" },
+      { name = "geography", type = "STRING", mode = "NULLABLE" },
+      { name = "neighborhood", type = "STRING", mode = "NULLABLE" }
+    ] }
+  ])
+}
+
+
 
 module "topic_with_schema" {
   source     = "../modules/pubsub"
