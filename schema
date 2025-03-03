@@ -1,3 +1,88 @@
+module "topic_with_schema" {
+  source     = "../modules/pubsub"
+  project_id = "sky3-star-mzp-ppd-d-eagleye-1"
+  name       = "blue-topic"
+
+  subscriptions = {
+    push_to_dmz_cr = {
+      push = {
+        endpoint = module.reciver_cloud_run.service_uri
+        oidc_token = {
+          service_account_email = module.cloud-run-service-account.email
+        }
+      }
+      retry_policy = {
+        minimum_backoff = 10
+        maximum_backoff = 600
+      }
+    }
+  }
+
+  schema = {
+    msg_encoding = "JSON"
+    schema_type  = "PROTOCOL_BUFFER"
+    definition = <<EOT
+syntax = "proto3";
+
+message Incident {
+  string id = 1;
+  optional string post_id = 2;
+  int64 update_time = 3;
+
+  message Channel {
+    string name = 1;
+    optional int64 id = 2;
+  }
+  Channel channel = 4;
+
+  bool is_breaking_news = 5;
+  string is_breaking_news_scale = 6;
+  string original_content = 7;
+  optional string summary = 8;
+  optional string media_url = 9;
+  string source_language = 10;
+  string title = 11;
+  optional string type = 12;
+  optional string city = 13;
+  optional string place = 14;
+  optional string involves = 15;
+
+  message Side {
+    optional string lightly_injured = 1;
+    optional string moderately_injured = 2;
+    optional string seriously_injured = 3;
+    optional string critical_injured = 4;
+    optional string deaths = 5;
+  }
+
+  message Casualties {
+    Side blue_side = 1;
+    Side red_side = 2;
+  }
+  Casualties casualties = 16;
+
+  optional string source = 17;
+  optional string date = 18;
+  optional string time = 19;
+  optional string verification_status = 20;
+  optional string incident_priority = 21;
+  optional string tags = 22;
+
+  message Geo {
+    optional string regions = 1;
+    optional string locations = 2;
+    optional string source = 3;
+    optional string point_id = 4;
+    optional string geography = 5;
+    optional string neighborhood = 6;
+  }
+  Geo geo = 23;
+}
+EOT
+  }
+}
+
+
 syntax = "proto3";
 
 message Incident {
