@@ -660,3 +660,55 @@ EOT
       }
     }
   ]
+
+
+{
+  "id": "181346ab-f0f3-461c-a6fe-cfaef4912568",
+  "post_id": null,
+  "update_time": 1740991351779,
+  "channel": {
+    "name": "internal8104",
+    "id": 2371097149
+  },
+  "is_breaking_news": false,
+  "is_breaking_news_scale": "0%",
+  "original_content": "לגלגל",
+  "summary": null,
+  "media_url": null,
+  "source_language": "hebrew",
+  "title": "לגלגל",
+  "type": null,
+  "city": null,
+  "place": null,
+  "involves": null,
+  "casualties": {
+    "blue_side": {
+      "lightly_injured": null,
+      "moderately_injured": null,
+      "seriously_injured": null,
+      "critical_injured": null,
+      "deaths": null
+    },
+    "red_side": {
+      "lightly_injured": null,
+      "moderately_injured": null,
+      "seriously_injured": null,
+      "critical_injured": null,
+      "deaths": null
+    }
+  },
+  "source": null,
+  "date": null,
+  "time": null,
+  "verification_status": null,
+  "incident_priority": null,
+  "tags": null,
+  "geo": {
+    "regions": null,
+    "locations": null,
+    "source": null,
+    "point_id": null,
+    "geography": null,
+    "neighborhood": null
+  }
+}
