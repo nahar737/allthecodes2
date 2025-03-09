@@ -1,3 +1,36 @@
+options:
+  logging: CLOUD_LOGGING_ONLY
+  pool:
+    name: projects/sky-starfish-mzp-t-cicd-0/locations/me-west1/workerPools/cicd-worker-pool
+
+steps:
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   args: ['pull', 'me-west1-docker.pkg.dev/sky-star-mzp-dev-t-eagleye-1/trusted/trusted-image:latest']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'me-west1-docker.pkg.dev/sky-star-mzp-dev-t-eagleye-1/trusted/trusted-image:latest', './our-cr']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'me-west1-docker.pkg.dev/sky-star-mzp-dev-t-eagleye-1/trusted/trusted-image:latest']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['tag', 'me-west1-docker.pkg.dev/sky-star-mzp-dev-t-eagleye-1/trusted/trusted-image:latest', 'me-west1-docker.pkg.dev/sky-starfish-mzp-cicd-ar-0/mzp-trusted-artifact-registry/trusted:latest']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'me-west1-docker.pkg.dev/sky-starfish-mzp-cicd-ar-0/mzp-trusted-artifact-registry/trusted:latest']
+ 
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'me-west1-docker.pkg.dev/sky-star-mzp-dev-t-eagleye-1/to-on-prem/to-on-prem-image:latest', './not-our-cr']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'me-west1-docker.pkg.dev/sky-star-mzp-dev-t-eagleye-1/to-on-prem/to-on-prem-image:latest']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['tag', 'me-west1-docker.pkg.dev/sky-star-mzp-dev-t-eagleye-1/to-on-prem/to-on-prem-image:latest', 'me-west1-docker.pkg.dev/sky-starfish-mzp-cicd-ar-0/mzp-trusted-artifact-registry/to-on-prem:latest']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'me-west1-docker.pkg.dev/sky-starfish-mzp-cicd-ar-0/mzp-trusted-artifact-registry/to-on-prem:latest']
+
+
 locals {
   events_after_llm = jsonencode([
     { name = "id", type = "STRING" },
