@@ -1,3 +1,5 @@
+gcloud run services update eagleye-preprod-cr —image=image-path —project=sky3-starfish-mzp-preprod-i-0
+
 options:
   logging: CLOUD_LOGGING_ONLY
   pool:
