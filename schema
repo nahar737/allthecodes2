@@ -1,3 +1,5 @@
+      serviceAccountName: trusted-cr-sa@sky3-star-mzp-prd-t-eagleye-1.iam.gserviceaccount.com
+
 module "receiver_cloud_run" {
   source     = "../modules/cloud-run-v2"
   project_id = "sky3-star-mzp-prd-u-eagleye-1"
