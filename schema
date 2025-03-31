@@ -1,3 +1,25 @@
+resource "google_storage_bucket_iam_member" "bucket_access" {
+  bucket  = google_storage_bucket.untrusted-data-eagleye.name
+  role   = "roles/pubsub.publisher"
+  member = "serviceAccount:bucket-sa@gs-project-accounts.iam.gserviceaccount.com"
+}
+
+# IAM binding to allow the Cloud Storage service account to publish to EventArc's Pub/Sub topic
+
+resource "google_pubsub_topic_iam_member" "bucket_publisher" {
+  topic  = module.pubsub.id
+  role   = "roles/pubsub.publisher"
+  member = "serviceAccount:${google_storage_bucket_iam_member.bucket_access.email}"
+}
+Error: �[0m�[0m�[1mUnsupported attribute�[0m
+Step #1 - "tf plan": �[31m│�[0m �[0m
+Step #1 - "tf plan": �[31m│�[0m �[0m�[0m  on main.tf line 100, in resource "google_pubsub_topic_iam_member" "bucket_publisher":
+Step #1 - "tf plan": �[31m│�[0m �[0m 100:   member = "serviceAccount:${google_storage_bucket_iam_member.bucket_access�[4m.email�[0m}"�[0m
+Step #1 - "tf plan": �[31m│�[0m �[0m
+Step #1 - "tf plan": �[31m│�[0m �[0mThis object has no argument, nested block, or exported attribute named
+Step #1 - "tf plan": �[31m│�[0m �[0m"email".
+
+
 querying Cloud Storage failed: googleapi: Error 403: trusted-mzp-iac-sa@sky3-starfish-cicd.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist)., forbidden�[0m
 
 gcloud run services update eagleye-preprod-cr —image=image-path —project=sky3-starfish-mzp-preprod-i-0
