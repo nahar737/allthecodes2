@@ -1,3 +1,35 @@
+module "receiver_cloud_run" {
+  source     = "../modules/cloud-run-v2"
+  project_id = "sky3-star-mzp-prd-u-eagleye-1"
+  name       = "reciver-and-publisher"
+  region     = "me-west1"
+  ingress = "INGRESS_TRAFFIC_INTERNAL_ONLY"
+  containers = {
+    telegram = {
+      image = "me-west1-docker.pkg.dev/sky3-star-mzp-prd-u-eagleye-1/untrusted/untrusted-image:latest"
+      env = {
+        PROJECT_ID: "sky3-star-mzp-prd-u-eagleye-1",
+        API_ID: "21556141",
+        API_HASH: "a766240c20717a498d095d5b49370fbe",
+        BOT_TOKEN: "7195523126:AAFfi_3aOP3Oim7l-l9dyn8G9yY8aqbcggY",
+        UNTRUSTED_BUCKET_NAME: "untrusted-data-eagleye",
+        SOURCE_CHANNELS: jsonencode(["N12chat", "yedidya_epshteyn", "abualiexpress", "internal8104"])
+      }
+    }
+  }
+  revision = {
+    gen2_execution_environment = true
+    max_instance_count         = 20
+    min_instance_count         = 1
+    vpc_access = {
+      # egress = "ALL_TRAFFIC"
+      subnet = "projects/sky3-starfish-mzp-prod-u-0/regions/me-west1/subnetworks/prod-untrusted-eagleye-1",
+    }
+  }
+  service_account = module.cloud-run-service-account.email
+  deletion_protection = false
+}
+
 resource "google_storage_bucket_iam_member" "bucket_access" {
   bucket  = google_storage_bucket.untrusted-data-eagleye.name
   role   = "roles/pubsub.publisher"
