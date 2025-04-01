@@ -1,3 +1,5 @@
+untrusted-cloudrun-sa@sky3-star-mzp-prd-u-eagleye-1.iam.gserviceaccount.com
+
 dmz-cloudrun-sa@sky3-star-mzp-prd-d-eagleye-1.iam.gserviceaccount.com
 
 # Grant Pub/Sub permission to write to the bucket
