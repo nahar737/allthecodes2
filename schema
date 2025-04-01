@@ -1,4 +1,43 @@
-      serviceAccountName: trusted-cr-sa@sky3-star-mzp-prd-t-eagleye-1.iam.gserviceaccount.com
+module "dead-letter" {
+  source     = "../modules/pubsub"
+  project_id = "sky3-star-mzp-prd-d-eagleye-1"
+  name       = "dead-letter"
+  subscriptions = {
+    push_to_dead_letter_bucket = {
+      cloud_storage = {
+        iam = {
+        "roles/pubsub.subscriber" = ["serviceAccount:${module.dead-letter-sa.email}"]
+      }
+        bucket = resource.google_storage_bucket.dead_letter_bucket.name
+        }
+    }
+      retry_policy = {
+        minimum_backoff = 10
+        maximum_backoff = 600
+       }
+    }
+  }
+
+module "dead-letter-sa" {
+  source     = "../modules/iam-service-account"
+  project_id = "sky3-star-mzp-prd-d-eagleye-1"
+  name       = "dead-letter-sa"
+  iam_project_roles = {
+    "sky3-star-mzp-ppd-d-eagleye-1" = [
+        "roles/storage.admin"
+    ]
+  }
+}
+
+mmodule.dead-letter.google_pubsub_subscription.default["push_to_dead_letter_bucket"]: Creating...�[0m�[0m
+Step #5 - "tf apply": �[31m╷�[0m�[0m
+Step #5 - "tf apply": �[31m│�[0m �[0m�[1m�[31mError: �[0m�[0m�[1mError creating Subscription: googleapi: Error 400: Cloud Pub/Sub did not have the necessary permissions configured to access the provided bucket dead_letter_dmz_prd (or the bucket may not exist). Please verify that the service account service-622712229522@gcp-sa-pubsub.iam.gserviceaccount.com was granted the Storage Legacy Bucket Reader and Storage Object Creator roles for the provided bucket. These roles must be granted at the bucket level, not the project level. If you must grant roles at the project level, you may instead grant the Storage Admin role for the project containing the provided bucket.�[0m
+Step #5 - "tf apply": �[31m│�[0m �[0m
+Step #5 - "tf apply": �[31m│�[0m �[0m�[0m  with module.dead-letter.google_pubsub_subscription.default["push_to_dead_letter_bucket"],
+Step #5 - "tf apply": �[31m│�[0m �[0m  on ../modules/pubsub/main.tf line 52, in resource "google_pubsub_subscription" "default":
+Step #5 - "tf apply": �[31m│�[0m �[0m  52: resource "google_pubsub_subscription" "default" �[4m{�[0m�[0m
+
+serviceAccountName: trusted-cr-sa@sky3-star-mzp-prd-t-eagleye-1.iam.gserviceaccount.com
                               dmz-cloudrun-sa@sky3-star-mzp-prd-d-eagleye-1.iam.gserviceaccount.com
 untrusted-cloudrun-sa@sky3-star-mzp-prd-u-eagleye-1.iam.gserviceaccount.com
 
