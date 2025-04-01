@@ -1,4 +1,6 @@
       serviceAccountName: trusted-cr-sa@sky3-star-mzp-prd-t-eagleye-1.iam.gserviceaccount.com
+                              dmz-cloudrun-sa@sky3-star-mzp-prd-d-eagleye-1.iam.gserviceaccount.com
+untrusted-cloudrun-sa@sky3-star-mzp-prd-u-eagleye-1.iam.gserviceaccount.com
 
 module "receiver_cloud_run" {
   source     = "../modules/cloud-run-v2"
