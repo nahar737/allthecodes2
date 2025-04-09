@@ -1,3 +1,26 @@
+options:
+  logging: CLOUD_LOGGING_ONLY
+  pool:
+    name: projects/sky3-starfish-mzp-d-cicd-0/locations/me-west1/workerPools/cicd-worker-pool
+
+steps:
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['pull', 'me-west1-docker.pkg.dev/sky-starfish-mzp-cicd-ar-0/mzp-dmz-artifact-registry/dmz:latest']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['tag', 'me-west1-docker.pkg.dev/sky-starfish-mzp-cicd-ar-0/mzp-dmz-artifact-registry/dmz:latest', 'me-west1-docker.pkg.dev/sky3-star-mzp-ppd-d-eagleye-1/dmz/dmz-image:latest']
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'me-west1-docker.pkg.dev/sky3-star-mzp-ppd-d-eagleye-1/dmz/dmz-image:latest']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['tag', 'me-west1-docker.pkg.dev/sky3-star-mzp-ppd-d-eagleye-1/dmz/dmz-image:latest', 'me-west1-docker.pkg.dev/sky3-star-mzp-prd-d-eagleye-1/dmz/dmz-image:latest']
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'me-west1-docker.pkg.dev/sky3-star-mzp-prd-d-eagleye-1/dmz/dmz-image:latest']
+
+
 untrusted-cloudrun-sa@sky3-star-mzp-prd-u-eagleye-1.iam.gserviceaccount.com
 
 dmz-cloudrun-sa@sky3-star-mzp-prd-d-eagleye-1.iam.gserviceaccount.com
