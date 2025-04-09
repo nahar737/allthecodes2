@@ -1,8 +1,8 @@
+ gcloud run services update eagleye-preprod-cr --image='me-west1-docker.pkg.dev/sky3-star-mzp-ppd-t-eagleye-1/to-on-prem/to-on-prem-image:latest' --update-env-vars=ONPREM_UR
+L =https://eagleye-prep.private.sky320.com/api/v1/push/oVpdAsoJwGI,PROJECT_ID=sky3-starfish-mzp-preprod-i-0 --pro
+ject='sky3-starfish-mzp-prod-i-0'
 
-gcloud run services update eagleye-preprod-cr
-  --image='me-west1-docker.pkg.dev/sky3-star-mzp-ppd-t-eagleye-1/to-on-prem/to-on-prem-image:latest'
-  --update-env-vars=url=https://nahaeer,ENV=preprod,DEBUG=false
-  --project='sky3-starfish-mzp-prod-i-0'
+gcloud run services update eagleye-preprod-cr --image='me-west1-docker.pkg.dev/sky3-star-mzp-ppd-t-eagleye-1/to-on-prem/to-on-prem-image:latest' --update-env-vars=url=https://nahaeer,ENV=preprod,DEBUG=false --project='sky3-starfish-mzp-prod-i-0'
 
 gcloud run services update eagleye-preprod-cr --image='me-west1-docker.pkg.dev/sky3-star-mzp-ppd-t-eagleye-1/to-on-prem/to-on-prem-image:latest' --project='sky3-starfish-mzp-prod-i-0'
 
