@@ -1,7 +1,61 @@
+{
+  "id": "cdf4cf24-a1d5-4658-bd32-4e4dd76dc93d",
+  "post_id": null,
+  "update_time": 1744209606284,
+  "channel": {
+    "name": "internal8104_prod",
+    "id": 2676978831
+  },
+  "is_breaking_news": false,
+  "is_breaking_news_scale": "0%",
+  "original_content": "Ggg",
+  "summary": "אין מידע משמעותי.",
+  "source_language": "english",
+  "title": null,
+  "type": null,
+  "city": null,
+  "place": null,
+  "involves": null,
+  "casualties": {
+    "blue_side": {
+      "lightly_injured": null,
+      "moderately_injured": null,
+      "seriously_injured": null,
+      "critical_injured": null,
+      "deaths": null
+    },
+    "red_side": {
+      "lightly_injured": null,
+      "moderately_injured": null,
+      "seriously_injured": null,
+      "critical_injured": null,
+      "deaths": null
+    }
+  },
+  "category": null,
+  "date": null,
+  "time": null,
+  "verification_status": null,
+  "incident_priority": null,
+  "tags": null,
+  "geo": {
+    "regions": null,
+    "locations": null,
+    "source": null,
+    "point_id": null,
+    "geography": null,
+    "neighborhood": null
+  },
+  "provider": "eagleye",
+  "origin": "telegram"
+}
+
 locals {
   events_after_llm = jsonencode([
     { name = "id", type = "STRING" },
-    { name = "post_id", type = "STRING", mode = "NULLABLE" },
+    { name = "post_id", type = "STRI
+
+NG", mode = "NULLABLE" },
     { name = "update_time", type = "INT64" },
     { name = "channel", type = "STRUCT", mode = "NULLABLE", fields = [
       { name = "name", type = "STRING", mode = "NULLABLE" },
